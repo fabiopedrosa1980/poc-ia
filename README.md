@@ -10,7 +10,7 @@
  - Docker
  - Virtual Threads
 
-## Enpoints
+## Endpoints
 POST localhost:8080/orders 
 ```
 {
@@ -26,9 +26,8 @@ POST localhost:8080/orders
 GET localhost:8080/orders
 
 ## OpenAI
- - Crie a chave e use na variavel de ambiente 
- - ${OPEN_AI}=suachave 
- - https://platform.openai.com/
+ - Crie a chave: https://platform.openai.com/  
+ - Use na variavel de ambiente: ${OPEN_AI}=suachave
 
 ## Chamano o chat OpenAI
 GET localhost:8080/story

@@ -8,6 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class Inventory {
 
+    private final Validation validation;
+
+    public Inventory(Validation validation) {
+        this.validation = validation;
+    }
+
     @ApplicationModuleListener
     void onInventoryUpdatedEvent(InventoryUpdatedEvent inventoryUpdatedEvent) throws InterruptedException {
         Thread.sleep(10_000);

@@ -10,8 +10,8 @@ import java.util.concurrent.ConcurrentSkipListSet;
 @Configuration
 class ThreadConfiguration {
 
-    @Bean
-    ApplicationRunner applicationRunner() {
+    //@Bean
+    /*ApplicationRunner applicationRunner() {
         return args -> {
 
             var threds = new ArrayList<Thread>();
@@ -58,6 +58,6 @@ class ThreadConfiguration {
             for (var t : threds) t.join();
             System.out.println(names.toString());
         };
-    }
+    }*/
 
 }

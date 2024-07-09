@@ -11,32 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Set;
 
-public class Orders {
-}
-
-class Loans {
-    String displayMesageFor(Loan loan) {
-        return switch (loan){
-            case UnsecuredLoan(var interest) ->
-                "ouch that " + interest;
-            case SecuredLoan sl ->
-                "Good job, you got a loan";
-        };
-
-    }
-}
-
-sealed interface Loan permits SecuredLoan, UnsecuredLoan {
-}
-
-final class SecuredLoan implements Loan {
-
-}
-
-record UnsecuredLoan(float interest) implements Loan {
-
-}
-
 @RestController
 @RequestMapping("/orders")
 @Transactional
@@ -53,14 +27,14 @@ class OrdersController {
 
 
     @GetMapping
-    Collection<Order> orders(){
+    Collection<Order> orders() {
         return this.orderRepository.findAll();
     }
 
     @PostMapping
     void create(@RequestBody Order order) {
-        var saved =  this.orderRepository.save(order);
-        saved.lineItems().forEach(li ->{
+        var saved = this.orderRepository.save(order);
+        saved.lineItems().forEach(li -> {
             applicationEventPublisher.publishEvent(new InventoryUpdatedEvent(
                     li.product(),
                     li.quantity()));
@@ -78,4 +52,23 @@ record LineItem(@Id Integer id, int product, int quantity) {
 
 @Table("orders")
 record Order(@Id Integer id, Set<LineItem> lineItems) {
+}
+
+//tests sealed
+sealed interface Loan permits SecuredLoan, UnsecuredLoan {
+}
+
+class Loans {
+    String displayMesageFor(Loan loan) {
+        return switch (loan) {
+            case UnsecuredLoan(var interest) -> "ouch that " + interest;
+            case SecuredLoan sl -> "Good job, you got a loan";
+        };
+    }
+}
+
+final class SecuredLoan implements Loan {
+}
+
+record UnsecuredLoan(float interest) implements Loan {
 }

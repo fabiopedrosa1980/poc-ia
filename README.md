@@ -30,6 +30,8 @@ GET localhost:8080/orders
  - ${OPEN_AI}=suachave 
  - https://platform.openai.com/
 
-## Testando OpenAI
+## Chamano o chat OpenAI
 GET localhost:8080/story
 
+## Acessando os Modulos 
+ - http://localhost:8080/actuator/modulith 
